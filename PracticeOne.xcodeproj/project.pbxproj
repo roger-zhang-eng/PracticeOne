@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		2234FBB41A67E0340081F435 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBB31A67E0340081F435 /* AppDelegate.swift */; };
 		2234FBB71A67E0340081F435 /* PracticeOne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBB51A67E0340081F435 /* PracticeOne.xcdatamodeld */; };
-		2234FBB91A67E0340081F435 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBB81A67E0340081F435 /* ViewController.swift */; };
 		2234FBBC1A67E0340081F435 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2234FBBA1A67E0340081F435 /* Main.storyboard */; };
 		2234FBBE1A67E0340081F435 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234FBBD1A67E0340081F435 /* Images.xcassets */; };
 		2234FBC11A67E0340081F435 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234FBBF1A67E0340081F435 /* LaunchScreen.xib */; };
 		2234FBCD1A67E0340081F435 /* PracticeOneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBCC1A67E0340081F435 /* PracticeOneTests.swift */; };
+		2234FBD71A67E2180081F435 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBD61A67E2180081F435 /* TableViewController.swift */; };
+		2234FBD91A67E8CE0081F435 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBD81A67E8CE0081F435 /* DataManager.swift */; };
+		2234FBDE1A67ECE30081F435 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBDD1A67ECE30081F435 /* SwiftyJSON.swift */; };
+		2234FBE01A67F0E70081F435 /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 2234FBDF1A67F0E70081F435 /* testdata.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,13 +34,17 @@
 		2234FBB21A67E0340081F435 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2234FBB31A67E0340081F435 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2234FBB61A67E0340081F435 /* PracticeOne.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PracticeOne.xcdatamodel; sourceTree = "<group>"; };
-		2234FBB81A67E0340081F435 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2234FBBB1A67E0340081F435 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2234FBBD1A67E0340081F435 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2234FBC01A67E0340081F435 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		2234FBC61A67E0340081F435 /* PracticeOneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PracticeOneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2234FBCB1A67E0340081F435 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2234FBCC1A67E0340081F435 /* PracticeOneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeOneTests.swift; sourceTree = "<group>"; };
+		2234FBD61A67E2180081F435 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		2234FBD81A67E8CE0081F435 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		2234FBDC1A67ECE30081F435 /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftyJSON.h; sourceTree = "<group>"; };
+		2234FBDD1A67ECE30081F435 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		2234FBDF1A67F0E70081F435 /* testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,12 +87,16 @@
 			isa = PBXGroup;
 			children = (
 				2234FBB31A67E0340081F435 /* AppDelegate.swift */,
-				2234FBB81A67E0340081F435 /* ViewController.swift */,
 				2234FBBA1A67E0340081F435 /* Main.storyboard */,
+				2234FBD61A67E2180081F435 /* TableViewController.swift */,
 				2234FBBD1A67E0340081F435 /* Images.xcassets */,
 				2234FBBF1A67E0340081F435 /* LaunchScreen.xib */,
 				2234FBB51A67E0340081F435 /* PracticeOne.xcdatamodeld */,
 				2234FBB11A67E0340081F435 /* Supporting Files */,
+				2234FBD81A67E8CE0081F435 /* DataManager.swift */,
+				2234FBDC1A67ECE30081F435 /* SwiftyJSON.h */,
+				2234FBDD1A67ECE30081F435 /* SwiftyJSON.swift */,
+				2234FBDF1A67F0E70081F435 /* testdata.json */,
 			);
 			path = PracticeOne;
 			sourceTree = "<group>";
@@ -198,6 +209,7 @@
 				2234FBBC1A67E0340081F435 /* Main.storyboard in Resources */,
 				2234FBC11A67E0340081F435 /* LaunchScreen.xib in Resources */,
 				2234FBBE1A67E0340081F435 /* Images.xcassets in Resources */,
+				2234FBE01A67F0E70081F435 /* testdata.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,8 +227,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2234FBB91A67E0340081F435 /* ViewController.swift in Sources */,
 				2234FBB41A67E0340081F435 /* AppDelegate.swift in Sources */,
+				2234FBD91A67E8CE0081F435 /* DataManager.swift in Sources */,
+				2234FBD71A67E2180081F435 /* TableViewController.swift in Sources */,
+				2234FBDE1A67ECE30081F435 /* SwiftyJSON.swift in Sources */,
 				2234FBB71A67E0340081F435 /* PracticeOne.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
