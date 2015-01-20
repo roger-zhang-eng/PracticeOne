@@ -17,6 +17,7 @@
 		2234FBD91A67E8CE0081F435 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBD81A67E8CE0081F435 /* DataManager.swift */; };
 		2234FBDE1A67ECE30081F435 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBDD1A67ECE30081F435 /* SwiftyJSON.swift */; };
 		2234FBE01A67F0E70081F435 /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 2234FBDF1A67F0E70081F435 /* testdata.json */; };
+		2282102B1A6E789A00E2D40B /* FetchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282102A1A6E789A00E2D40B /* FetchImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		2234FBDC1A67ECE30081F435 /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftyJSON.h; sourceTree = "<group>"; };
 		2234FBDD1A67ECE30081F435 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		2234FBDF1A67F0E70081F435 /* testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata.json; sourceTree = "<group>"; };
+		2282102A1A6E789A00E2D40B /* FetchImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				2234FBDC1A67ECE30081F435 /* SwiftyJSON.h */,
 				2234FBDD1A67ECE30081F435 /* SwiftyJSON.swift */,
 				2234FBDF1A67F0E70081F435 /* testdata.json */,
+				2282102A1A6E789A00E2D40B /* FetchImage.swift */,
 			);
 			path = PracticeOne;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 			files = (
 				2234FBB41A67E0340081F435 /* AppDelegate.swift in Sources */,
 				2234FBD91A67E8CE0081F435 /* DataManager.swift in Sources */,
+				2282102B1A6E789A00E2D40B /* FetchImage.swift in Sources */,
 				2234FBD71A67E2180081F435 /* TableViewController.swift in Sources */,
 				2234FBDE1A67ECE30081F435 /* SwiftyJSON.swift in Sources */,
 				2234FBB71A67E0340081F435 /* PracticeOne.xcdatamodeld in Sources */,
@@ -357,6 +361,7 @@
 				INFOPLIST_FILE = PracticeOne/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -367,6 +372,7 @@
 				INFOPLIST_FILE = PracticeOne/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
@@ -423,6 +429,7 @@
 				2234FBD21A67E0340081F435 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2234FBD31A67E0340081F435 /* Build configuration list for PBXNativeTarget "PracticeOneTests" */ = {
 			isa = XCConfigurationList;
@@ -431,6 +438,7 @@
 				2234FBD51A67E0340081F435 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -9,7 +9,15 @@
 import Foundation
 
 class DataManager {
-    class func getDataFromFile(success: ((data:NSData) -> Void)) {
+    
+    var database : Array<JSON>?
+    var database_exist = false
+    
+    init() {
+        println("DataManager init done!")
+    }
+    
+    func getDataFromFile(success: ((data:NSData) -> Array<JSON>?)) {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             let filePath = NSBundle.mainBundle().pathForResource("testdata", ofType: "json")
@@ -18,8 +26,11 @@ class DataManager {
             var readError:NSError?
             if let data = NSData(contentsOfFile: filePath!, options: NSDataReadingOptions.DataReadingUncached,
                 error:&readError) {
-                    success(data: data)
-            } })
+                    self.database =  success(data: data)
+                    self.database_exist = true
+            }
+        
+        })
     }
     
     
