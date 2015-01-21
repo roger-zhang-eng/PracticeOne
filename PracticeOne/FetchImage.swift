@@ -10,12 +10,12 @@ import UIKit
 import Foundation
 
 protocol FetchImageProtocol {
-    func didReceiveImgResults(img_view:UIImageView?,img_data: UIImage?)
+    func didReceiveImgResults(index:Int?,img_data: UIImage?)
 }
 
 class FetchImage: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
     var img:UIImage?
-    var imgView:UIImageView?
+    var index:Int?
     
     var delegate: FetchImageProtocol?
     
@@ -29,8 +29,8 @@ class FetchImage: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
         }
     }
     
-    init(val:UIImageView) {
-        imgView = val
+    init(val:Int) {
+        index = val
     }
     
     func httpGet(request: NSMutableURLRequest!, callback: (String,
@@ -52,7 +52,7 @@ class FetchImage: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
                     callback(result, nil)
                     
                     self.img = UIImage(data: data)
-                    self.delegate?.didReceiveImgResults(self.imgView, img_data:self.img)
+                    self.delegate?.didReceiveImgResults(self.index, img_data:self.img)
                     
                 }
             }

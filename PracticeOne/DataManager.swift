@@ -19,9 +19,9 @@ class DataManager {
     
     func getDataFromFile(success: ((data:NSData) -> Array<JSON>?)) {
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             let filePath = NSBundle.mainBundle().pathForResource("testdata", ofType: "json")
-            NSLog("NSData file is: \(filePath!)")
+            //NSLog("NSData file is: \(filePath!)")
             
             var readError:NSError?
             if let data = NSData(contentsOfFile: filePath!, options: NSDataReadingOptions.DataReadingUncached,
@@ -30,7 +30,7 @@ class DataManager {
                     self.database_exist = true
             }
         
-        })
+        //})
     }
     
     
