@@ -25,13 +25,26 @@ class TableViewController: UITableViewController,FetchImageProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadTableViewData()
+        
+        //debug print
+        if(self.tabledata.database_exist) {
+            println("In viewDidLoad: Recoreds -> \(self.tabledata.database!.count)")
+            
+            for i in 1...self.tabledata.database!.count {
+                let rowData = tabledata.database![i-1]
+                let dateline_str = rowData["dateLine"].stringValue
+                println("cell[\(i-1)] dateLine: \(dateline_str)")
+            }
+            
+        }
 
     }
 
     func loadTableViewData()-> Void
     {
         // ######  Use SwiftyJSON class (github) to parse elements  ###########
-        tabledata.getDataFromFile { (data:NSData) -> Array<JSON>? in
+        //tabledata.getDataFromFile { (data:NSData) -> Array<JSON>? in
+        tabledata.getDataFromURL { (data:NSData) -> Array<JSON>? in
             
             let datasource = JSON(data: data)
             
@@ -59,14 +72,33 @@ class TableViewController: UITableViewController,FetchImageProtocol {
             } else {
                 return nil
             }
-        }//end of DataManager get data from file
+        }//end of DataManager get data closure
     
     }
     
     @IBAction func RefreshBtn(sender: UIButton) {
-        if(tabledata.database_exist) {
-        println("Recoreds: \(tabledata.database!.count)")
+        
+        tableIndexPath.removeAll(keepCapacity: false)
+        tabledata.resetAll()
+        loadTableViewData()
+        
+        //debug print
+        if(self.tabledata.database_exist) {
+            println("In RefreshBtn: Recoreds -> \(self.tabledata.database!.count)")
+        
+            for i in 1...self.tabledata.database!.count {
+                let rowData = tabledata.database![i-1]
+                let dateline_str = rowData["dateLine"].stringValue
+                println("cell[\(i-1)] dateLine: \(dateline_str)")
+            }
+            
         }
+        
+        
+        
+        self.newsTableView.reloadData()
+
+        
     }
     
     
@@ -75,14 +107,14 @@ class TableViewController: UITableViewController,FetchImageProtocol {
           return tabledata.database!.count
         } else {
             NSLog("In tableView numberofRowsInSecton, tabledata does not get database!")
-            return 1
+            return 0
         }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if(indexPath.row == 1) {
-            println("In tableview cellforrowatindexpath:  row 0 ! ")
+            println("In tableview cellforrowatindexpath:  row 1 ! ")
         }
 
         //ask for a reusable cell from the tableview, the tableview will create a new one if it doesn't have any
@@ -130,8 +162,8 @@ class TableViewController: UITableViewController,FetchImageProtocol {
             //cell.reloadInputViews()
             
             if(indexPath.row == 1) {
-                NSLog("cell textLabel : \(cell.textLabel!.text)")
-                NSLog("cell detailText : \(cell.detailTextLabel!.text)")
+                NSLog("cell[1] textLabel : \(cell.textLabel!.text)")
+                NSLog("cell[1] detailText : \(cell.detailTextLabel!.text)")
                 //NSLog("imgURL : \(urlstr)")
             }
             

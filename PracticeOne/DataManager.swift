@@ -33,5 +33,20 @@ class DataManager {
         //})
     }
     
+    func getDataFromURL(success: ((data:NSData) -> Array<JSON>?)) {
+        if let url = NSURL(string: "http://mobilatr.mob.f2.com.au/services/views/9.json") {
+            if let data = NSData(contentsOfURL: url){
+                self.database =  success(data: data)
+                self.database_exist = true
+            }// end of if let data=
+        } // end of if let url=
+    } // end of func getDataFromURL
+    
+    func resetAll() {
+        if(self.database != nil) {
+            self.database?.removeAll(keepCapacity: false)
+        }
+        self.database_exist = false
+    }
     
 }
