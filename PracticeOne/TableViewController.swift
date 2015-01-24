@@ -13,6 +13,7 @@ struct tableUpdateValue {
     var index_path: NSIndexPath
     var headline: String
     var slugline: String
+    var tinyUrl: String
 }
 
 class TableViewController: UITableViewController,FetchImageProtocol {
@@ -118,11 +119,16 @@ class TableViewController: UITableViewController,FetchImageProtocol {
         }
 
         //ask for a reusable cell from the tableview, the tableview will create a new one if it doesn't have any
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "NewsCell")
+        //let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "NewsCell")
+        let cell = newsTableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as UITableViewCell
         
         if(tableIndexPath[indexPath.row] != nil) {
-
-            return tableIndexPath[indexPath.row]!.cell_data
+            if(indexPath.row == 1) {
+                println("cell of row 1 has existed, reuse it ! ")
+            }
+            
+            //return tableIndexPath[indexPath.row]!.cell_data
+            return cell
         }
         
         if(tabledata.database_exist) {
@@ -131,7 +137,7 @@ class TableViewController: UITableViewController,FetchImageProtocol {
             cell.textLabel!.text = rowData["headLine"].stringValue
             cell.detailTextLabel!.text = rowData["slugLine"].stringValue
             
-            var cell_all_data = tableUpdateValue(cell_data: cell, index_path: indexPath, headline: rowData["headLine"].stringValue!, slugline: rowData["slugLine"].stringValue!)
+            var cell_all_data = tableUpdateValue(cell_data: cell, index_path: indexPath, headline: rowData["headLine"].stringValue!, slugline: rowData["slugLine"].stringValue!,tinyUrl:rowData["tinyUrl"].stringValue!)
             tableIndexPath[indexPath.row] = cell_all_data
             
             //let imgURL = NSURL(string:"https://www.alamo.edu/uploadedImages/NVC/Website_Assets/Images/News_and_Events_Sets/youtube-logo.jpg");
@@ -191,5 +197,18 @@ class TableViewController: UITableViewController,FetchImageProtocol {
             
         }) // end of dispatch_async
     } // end of didReceiveAPIResults func
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showDetail" {
+            if let indexPath = self.newsTableView.indexPathForSelectedRow() {
+                //let vehicle = vehicles[indexPath.row]
+                let weburl = tableIndexPath[indexPath.row]!.tinyUrl
+                
+                (segue.destinationViewController as WebViewController).url = NSURL(string: weburl)
+                
+            }
+        }
+    }
+
     
 }
