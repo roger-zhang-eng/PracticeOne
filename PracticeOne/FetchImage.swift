@@ -23,7 +23,7 @@ class FetchImage: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
     var callback: CallbackBlock = {
         (resultString, error) -> Void in
         if error == nil {
-            println(resultString)
+            //println(resultString)
         } else {
             println(error)
         }
@@ -49,6 +49,7 @@ class FetchImage: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
                     //var result = NSString(data: data, encoding:
                     //    NSASCIIStringEncoding)!
                     var result = "Get https data OK! Bytes: \(data.length) \n"
+                    
                     callback(result, nil)
                     
                     self.img = UIImage(data: data)
