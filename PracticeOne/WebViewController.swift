@@ -25,5 +25,26 @@ class WebViewController: UIViewController {
         
     }
     
+    @IBAction func WebStop(sender: UIBarButtonItem) {
+        println("WebView stop loading")
+        webView.stopLoading()
+    }
 
+    @IBAction func WebRefresh(sender: UIBarButtonItem) {
+        println("WebView refresh loading")
+        webView.reload()
+    }
+    
+    @IBAction func WebRewind(sender: UIBarButtonItem) {
+        println("WebView rewind loading")
+        webView.goBack()
+    }
+    
+    @IBAction func WebForward(sender: UIBarButtonItem) {
+        println("WebView forward loading")
+        webView.goForward()
+        
+    }
+    
+    
 }

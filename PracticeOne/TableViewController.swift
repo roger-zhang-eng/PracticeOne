@@ -16,15 +16,23 @@ struct tableUpdateValue {
     var tinyUrl: String
 }
 
-class TableViewController: UITableViewController,FetchImageProtocol {
+class TableViewController: UITableViewController,FetchImageProtocol,DataManagerProtocol {
     
     @IBOutlet var newsTableView: UITableView!
     
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var stopLoadingBtn: UIButton!
+    
     var tabledata=DataManager()
     var tableIndexPath = Dictionary<Int,tableUpdateValue>()
+    var stopLoading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        stopLoadingBtn.hidden = false
+        
         loadTableViewData()
         
         //debug print
@@ -39,17 +47,28 @@ class TableViewController: UITableViewController,FetchImageProtocol {
             
         } else {
             println("In viewDidLoad: database does not exist")
+            self.loadingIndicator.hidesWhenStopped = true
+            self.loadingIndicator.startAnimating()
         }
         
 
     }
 
+    @IBAction func stopLoadingURL(sender: UIButton) {
+        
+        self.stopLoading = true
+        self.loadingIndicator.stopAnimating()
+    }
+    
     override func  viewDidAppear(animated: Bool) {
         println("In viewDidAppear !")
     }
     
     func loadTableViewData()-> Void
     {
+        //set the delegate for the task delay in didReceiveURLResults
+        tabledata.delegate = self
+        
         // ######  Use SwiftyJSON class (github) to parse elements  ###########
         //tabledata.getDataFromFile { (data:NSData) -> Array<JSON>? in
         tabledata.getDataFromURL { (data:NSData) -> Array<JSON>? in
@@ -88,6 +107,12 @@ class TableViewController: UITableViewController,FetchImageProtocol {
         
         tableIndexPath.removeAll(keepCapacity: false)
         tabledata.resetAll()
+        self.stopLoading = false
+        self.stopLoadingBtn.hidden = false
+        self.loadingIndicator.hidesWhenStopped = true
+        self.loadingIndicator.startAnimating()
+        self.newsTableView.reloadData()
+        
         loadTableViewData()
         
         //debug print
@@ -104,7 +129,7 @@ class TableViewController: UITableViewController,FetchImageProtocol {
         
 
         
-        self.newsTableView.reloadData()
+        
 
         
     }
@@ -115,7 +140,7 @@ class TableViewController: UITableViewController,FetchImageProtocol {
           return tabledata.database!.count
         } else {
             NSLog("In tableView numberofRowsInSecton, tabledata does not get database!")
-            return 1
+            return 0
         }
     }
     
@@ -127,12 +152,16 @@ class TableViewController: UITableViewController,FetchImageProtocol {
         //let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "NewsCell")
         let cell = newsTableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as UITableViewCell
         
-        if(tableIndexPath[indexPath.row] != nil) {
+        
+        if(tabledata.database_exist) {
             
-            println("cell of row \(indexPath.row) has existed, reuse it ! ")
-            
-            cell.textLabel!.text = tableIndexPath[indexPath.row]!.headline
-            cell.detailTextLabel!.text = tableIndexPath[indexPath.row]!.slugline
+            //when the database records exist, return the cell's needed information directly.
+            if(tableIndexPath[indexPath.row] != nil) {
+                
+                println("cell of row \(indexPath.row) has existed, reuse it ! ")
+                
+                cell.textLabel!.text = tableIndexPath[indexPath.row]!.headline
+                cell.detailTextLabel!.text = tableIndexPath[indexPath.row]!.slugline
                 if tableIndexPath[indexPath.row]!.image != nil {
                     println("cell of row \(indexPath.row) has image ! ")
                     cell.imageView!.image = tableIndexPath[indexPath.row]?.image!
@@ -140,12 +169,11 @@ class TableViewController: UITableViewController,FetchImageProtocol {
                     cell.imageView?.image = nil
                     println("cell of row \(indexPath.row) does not has image ! ")
                 }
+                
+                return cell
+            }
             
-            return cell
-        }
-        
-        if(tabledata.database_exist) {
-            
+            //when the tableview run 1st time after database got, run the following codes.
             let rowData = tabledata.database![indexPath.row]
             cell.textLabel!.text = rowData["headLine"].stringValue!
             cell.detailTextLabel!.text = rowData["slugLine"].stringValue
@@ -193,6 +221,32 @@ class TableViewController: UITableViewController,FetchImageProtocol {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println("The selected cell's row \(indexPath.row)")
+    }
+    
+    func didReceiveURLResults(timeval:Int?) {
+        
+        // Delay execution of my block for 8 seconds.
+        // This delay is only for simulating the network delay, and demo the loading waiting time animation!
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW,Int64(8 * Double(NSEC_PER_SEC)))
+    
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            println("Database is got, but delay 10s to call back!")
+            
+            //stop loading indicator, and reload tableview data to display
+            self.loadingIndicator.stopAnimating()
+            
+            //do the database set according to the stopLoading Button
+            //Only when all the records are got, the tableview is allowed to be displayed.
+            if self.stopLoading {
+                self.tableIndexPath.removeAll(keepCapacity: false)
+                self.tabledata.resetAll()
+            } else {
+                self.stopLoadingBtn.hidden = true
+                self.tableView!.reloadData()
+            }
+        }
+    
+    
     }
     
     func didReceiveImgResults(index:Int?,img_data: UIImage?) {

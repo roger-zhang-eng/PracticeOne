@@ -8,10 +8,15 @@
 
 import Foundation
 
+protocol DataManagerProtocol {
+    func didReceiveURLResults(timeval:Int?)
+}
+
 class DataManager {
     
     var database : Array<JSON>?
     var database_exist = false
+    var delegate: DataManagerProtocol?
     
     init() {
         println("DataManager init done!")
@@ -35,10 +40,28 @@ class DataManager {
     
     func getDataFromURL(success: ((data:NSData) -> Array<JSON>?)) {
         if let url = NSURL(string: "http://mobilatr.mob.f2.com.au/services/views/9.json") {
-            if let data = NSData(contentsOfURL: url){
-                self.database =  success(data: data)
-                self.database_exist = true
-            }// end of if let data=
+            
+            //run to get the JSON file from URL by task Asynchronously
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
+            
+            //run to get the JSON file from URL synchronously
+            //if let data = NSData(contentsOfURL: url){
+                
+                if(error != nil) {
+                    // If there is an error in the web request, print it to the console
+                    println(error.localizedDescription)
+                } else {
+                    self.database =  success(data: data)
+                    self.database_exist = true
+                
+                    //call delegate func to trigger 8s delay back to main queue
+                    self.delegate?.didReceiveURLResults(8)
+                }
+                
+            } )// end of session.dataTaskWithURL
+            task.resume()
+            
         } // end of if let url=
     } // end of func getDataFromURL
     
