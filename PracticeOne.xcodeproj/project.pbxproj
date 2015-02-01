@@ -19,6 +19,7 @@
 		2234FBE01A67F0E70081F435 /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 2234FBDF1A67F0E70081F435 /* testdata.json */; };
 		2282102B1A6E789A00E2D40B /* FetchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282102A1A6E789A00E2D40B /* FetchImage.swift */; };
 		228D055C1A73B27B00ADB953 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228D055B1A73B27B00ADB953 /* WebViewController.swift */; };
+		22C53C381A7A5510009E5410 /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C53C371A7A5510009E5410 /* BasicCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		2234FBDF1A67F0E70081F435 /* testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata.json; sourceTree = "<group>"; };
 		2282102A1A6E789A00E2D40B /* FetchImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchImage.swift; sourceTree = "<group>"; };
 		228D055B1A73B27B00ADB953 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		22C53C371A7A5510009E5410 /* BasicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				2234FBDF1A67F0E70081F435 /* testdata.json */,
 				2282102A1A6E789A00E2D40B /* FetchImage.swift */,
 				228D055B1A73B27B00ADB953 /* WebViewController.swift */,
+				22C53C371A7A5510009E5410 /* BasicCell.swift */,
 			);
 			path = PracticeOne;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				2234FBD91A67E8CE0081F435 /* DataManager.swift in Sources */,
 				2282102B1A6E789A00E2D40B /* FetchImage.swift in Sources */,
 				2234FBD71A67E2180081F435 /* TableViewController.swift in Sources */,
+				22C53C381A7A5510009E5410 /* BasicCell.swift in Sources */,
 				228D055C1A73B27B00ADB953 /* WebViewController.swift in Sources */,
 				2234FBDE1A67ECE30081F435 /* SwiftyJSON.swift in Sources */,
 				2234FBB71A67E0340081F435 /* PracticeOne.xcdatamodeld in Sources */,

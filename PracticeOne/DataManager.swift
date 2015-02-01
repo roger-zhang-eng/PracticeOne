@@ -32,7 +32,6 @@ class DataManager {
             if let data = NSData(contentsOfFile: filePath!, options: NSDataReadingOptions.DataReadingUncached,
                 error:&readError) {
                     self.database =  success(data: data)
-                    self.database_exist = true
             }
         
         //})
@@ -53,10 +52,9 @@ class DataManager {
                     println(error.localizedDescription)
                 } else {
                     self.database =  success(data: data)
-                    self.database_exist = true
                 
                     //call delegate func to trigger 8s delay back to main queue
-                    self.delegate?.didReceiveURLResults(8)
+                    self.delegate?.didReceiveURLResults(3)
                 }
                 
             } )// end of session.dataTaskWithURL

@@ -33,6 +33,11 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
         
         stopLoadingBtn.hidden = false
         
+        //set tableview cell height auto
+        newsTableView.estimatedRowHeight = 160
+        newsTableView.rowHeight = UITableViewAutomaticDimension
+        
+        //catch the database from JSON URL
         loadTableViewData()
         
         //debug print
@@ -62,6 +67,16 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
     
     override func  viewDidAppear(animated: Bool) {
         println("In viewDidAppear !")
+        super.viewWillAppear(animated)
+        deselectAllRows()
+    }
+    
+    func deselectAllRows() {
+        if let selectedRows = newsTableView.indexPathsForSelectedRows() as? [NSIndexPath] {
+            for indexPath in selectedRows {
+                tableView.deselectRowAtIndexPath(indexPath, animated: false)
+            }
+        }
     }
     
     func loadTableViewData()-> Void
@@ -77,6 +92,9 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
             
             if let newsrecords = datasource["items"].arrayValue {
                 println("JSON elements array has \(newsrecords.count) records")
+                
+                //only when JSON data could be parsed, set the database_exist true, otherwise database_exist is still default false
+                self.tabledata.database_exist = true
                 
                /* if let test_ele1 = datasource["items"][0]["headLine"].stringValue {
                     println("The 1st element headline : \(test_ele1)")
@@ -102,6 +120,53 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
         }//end of DataManager get data closure
     
     }
+    
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 160
+    }
+    
+    /*
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+         var sizingCell : BasicCell?
+        
+        if(tableIndexPath[indexPath.row] != nil) {
+        
+            if indexPath.row == 0 {
+                println("In heightForRowAtIndexPath: Row 0 is caculated for height")
+            }
+            
+            
+            var token : dispatch_once_t = 0
+            dispatch_once(&token) {
+                sizingCell = self.newsTableView.dequeueReusableCellWithIdentifier("NewsCell") as? BasicCell
+            }
+        
+            sizingCell!.headline.text = tableIndexPath[indexPath.row]!.headline
+            sizingCell!.slugline.text = tableIndexPath[indexPath.row]!.slugline
+    
+            //sizingCell!.bounds = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), CGRectGetHeight(sizingCell!.bounds))
+            
+            sizingCell!.setNeedsLayout()
+            sizingCell!.layoutIfNeeded()
+            
+            let size:CGSize = sizingCell!.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
+            
+            if indexPath.row == 0 {
+                println("In heightForRowAtIndexPath: Row 0 height \(size.height)")
+            }
+            
+            return size.height + 1 // Add 1.0f for the cell separator height
+        } else {
+            
+            if indexPath.row == 0 {
+                println("In heightForRowAtIndexPath: Row 0 is 140 for nil branch")
+            }
+            return 140
+        }
+        
+        
+    }
+    */
     
     @IBAction func RefreshBtn(sender: UIButton) {
         
@@ -150,7 +215,7 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
         
         //ask for a reusable cell from the tableview, the tableview will create a new one if it doesn't have any
         //let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "NewsCell")
-        let cell = newsTableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as UITableViewCell
+        let cell = newsTableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as BasicCell
         
         
         if(tabledata.database_exist) {
@@ -160,23 +225,24 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
                 
                 println("cell of row \(indexPath.row) has existed, reuse it ! ")
                 
-                cell.textLabel!.text = tableIndexPath[indexPath.row]!.headline
-                cell.detailTextLabel!.text = tableIndexPath[indexPath.row]!.slugline
+                cell.headline.text = tableIndexPath[indexPath.row]!.headline
+                cell.slugline.text = tableIndexPath[indexPath.row]!.slugline
+                /*
                 if tableIndexPath[indexPath.row]!.image != nil {
                     println("cell of row \(indexPath.row) has image ! ")
                     cell.imageView!.image = tableIndexPath[indexPath.row]?.image!
                 } else {
                     cell.imageView?.image = nil
                     println("cell of row \(indexPath.row) does not has image ! ")
-                }
+                }*/
                 
                 return cell
             }
             
             //when the tableview run 1st time after database got, run the following codes.
             let rowData = tabledata.database![indexPath.row]
-            cell.textLabel!.text = rowData["headLine"].stringValue!
-            cell.detailTextLabel!.text = rowData["slugLine"].stringValue
+            cell.headline.text = rowData["headLine"].stringValue!
+            cell.slugline.text = rowData["slugLine"].stringValue
             
             var cell_all_data = tableUpdateValue(index_path: indexPath, headline: rowData["headLine"].stringValue!, slugline: rowData["slugLine"].stringValue!,image: nil,tinyUrl:rowData["tinyUrl"].stringValue!)
             tableIndexPath[indexPath.row] = cell_all_data
@@ -184,6 +250,7 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
             //let imgURL = NSURL(string:"https://www.alamo.edu/uploadedImages/NVC/Website_Assets/Images/News_and_Events_Sets/youtube-logo.jpg");
             //let imgURL:NSURL? = NSURL(string: rowData["thumbnailImageHref"].stringValue!)
             
+            /*
             if let urlstr = rowData["thumbnailImageHref"].stringValue {
                 if(countElements(urlstr) > 5) {
                     //NSLog("thumbnailImageHref in row \(indexPath.row) is \(urlstr)")
@@ -201,7 +268,7 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
             
             } else {
                 NSLog("No thumbnailImageHref in row \(indexPath.row)")
-            }
+            } */
             
             
             /*
@@ -227,10 +294,10 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
         
         // Delay execution of my block for 8 seconds.
         // This delay is only for simulating the network delay, and demo the loading waiting time animation!
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW,Int64(8 * Double(NSEC_PER_SEC)))
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW,Int64(3 * Double(NSEC_PER_SEC)))
     
         dispatch_after(delayTime, dispatch_get_main_queue()) {
-            println("Database is got, but delay 10s to call back!")
+            println("Database is got, but delay time to call back!")
             
             //stop loading indicator, and reload tableview data to display
             self.loadingIndicator.stopAnimating()
