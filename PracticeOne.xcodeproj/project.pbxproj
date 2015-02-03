@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		222F72941A7F9861007EF84C /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222F72931A7F9861007EF84C /* ImageCell.swift */; };
 		2234FBB41A67E0340081F435 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBB31A67E0340081F435 /* AppDelegate.swift */; };
 		2234FBB71A67E0340081F435 /* PracticeOne.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBB51A67E0340081F435 /* PracticeOne.xcdatamodeld */; };
 		2234FBBC1A67E0340081F435 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2234FBBA1A67E0340081F435 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		222F72931A7F9861007EF84C /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		2234FBAE1A67E0340081F435 /* PracticeOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PracticeOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2234FBB21A67E0340081F435 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2234FBB31A67E0340081F435 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				2282102A1A6E789A00E2D40B /* FetchImage.swift */,
 				228D055B1A73B27B00ADB953 /* WebViewController.swift */,
 				22C53C371A7A5510009E5410 /* BasicCell.swift */,
+				222F72931A7F9861007EF84C /* ImageCell.swift */,
 			);
 			path = PracticeOne;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			files = (
 				2234FBB41A67E0340081F435 /* AppDelegate.swift in Sources */,
 				2234FBD91A67E8CE0081F435 /* DataManager.swift in Sources */,
+				222F72941A7F9861007EF84C /* ImageCell.swift in Sources */,
 				2282102B1A6E789A00E2D40B /* FetchImage.swift in Sources */,
 				2234FBD71A67E2180081F435 /* TableViewController.swift in Sources */,
 				22C53C381A7A5510009E5410 /* BasicCell.swift in Sources */,
