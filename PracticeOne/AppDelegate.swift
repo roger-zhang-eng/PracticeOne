@@ -17,6 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let navView = self.window?.rootViewController as UINavigationController
+        let tableViewController = navView.viewControllers[0] as TableViewController
+        
+        //tableViewController.stopLoadingBtn.hidden = false
+        //tableViewController.loadingIndicator.hidesWhenStopped = false
+        tableViewController.tabledata = DataManager()
+        tableViewController.loadTableViewData()
+        
+        
+        
+        
+        
+        
         return true
     }
 
