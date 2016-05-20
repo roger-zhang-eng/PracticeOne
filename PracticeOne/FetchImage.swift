@@ -25,7 +25,7 @@ class FetchImage: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
         if error == nil {
             //println(resultString)
         } else {
-            println(error)
+            print(error)
         }
     }
     
@@ -33,6 +33,7 @@ class FetchImage: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
         index = val
     }
     
+    //Download image asynchronous
     func httpGet(request: NSMutableURLRequest!, callback: (String,
         String?) -> Void) {
             var configuration =
@@ -41,35 +42,36 @@ class FetchImage: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
                 delegate: self,
                 delegateQueue:NSOperationQueue.mainQueue())
             var task = session.dataTaskWithRequest(request){
-                (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
-                if error != nil {
-                    callback("", error.localizedDescription)
-                } else {
+                (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+                    if error != nil {
+                        callback("", error!.localizedDescription)
+                    } else {
                     //This is only for text string data display
                     //var result = NSString(data: data, encoding:
                     //    NSASCIIStringEncoding)!
-                    var result = "Get https data OK! Bytes: \(data.length) \n"
+                        var result = "Get https data OK! Bytes: \(data!.length) \n"
                     
-                    callback(result, nil)
+                        callback(result, nil)
                     
-                    self.img = UIImage(data: data)
-                    self.delegate?.didReceiveImgResults(self.index, img_data:self.img)
+                        self.img = UIImage(data: data!)
+                        self.delegate?.didReceiveImgResults(self.index, img_data:self.img)
                     
-                }
+                    }
             }
             task.resume()
     }
     
+    //For https:// authentication
     func URLSession(session: NSURLSession,
         didReceiveChallenge challenge:
         NSURLAuthenticationChallenge,
         completionHandler:
         (NSURLSessionAuthChallengeDisposition,
-        NSURLCredential!) -> Void) {
+        NSURLCredential?) -> Void) {
             completionHandler(
                 NSURLSessionAuthChallengeDisposition.UseCredential,
                 NSURLCredential(forTrust:
-                    challenge.protectionSpace.serverTrust))
+                    challenge.protectionSpace.serverTrust!))
     }
     
     func URLSession(session: NSURLSession,
@@ -77,9 +79,9 @@ class FetchImage: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
         willPerformHTTPRedirection response:
         NSHTTPURLResponse,
         newRequest request: NSURLRequest,
-        completionHandler: (NSURLRequest!) -> Void) {
-            var newRequest : NSURLRequest? = request
-            println(newRequest?.description);
+        completionHandler: (NSURLRequest?) -> Void) {
+            let newRequest : NSURLRequest? = request
+            print(newRequest?.description);
             completionHandler(newRequest)
     }
 }

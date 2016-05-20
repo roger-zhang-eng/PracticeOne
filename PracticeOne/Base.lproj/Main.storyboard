@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="weI-Wi-cfq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="weI-Wi-cfq">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -10,19 +11,20 @@
             <objects>
                 <tableViewController id="LEg-tU-OEc" customClass="TableViewController" customModule="PracticeOne" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="95" sectionHeaderHeight="22" sectionFooterHeight="22" id="X5x-5b-Omh">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" id="C8f-05-YKv">
-                            <rect key="frame" x="0.0" y="130" width="320" height="37"/>
+                            <rect key="frame" x="0.0" y="310" width="600" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="color" red="1" green="0.12456482319999999" blue="0.1925661615" alpha="1" colorSpace="calibratedRGB"/>
                         </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="NewsCell" rowHeight="84" id="u8h-c3-zeS" customClass="BasicCell" customModule="PracticeOne" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="600" height="84"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" tableViewCell="u8h-c3-zeS" id="9yN-W6-zjq">
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="83"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" misplaced="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvX-dg-0io">
@@ -34,7 +36,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPF-r8-vWJ">
                                             <rect key="frame" x="20" y="44" width="280" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -51,13 +53,14 @@
                                 <connections>
                                     <outlet property="headline" destination="gvX-dg-0io" id="GEj-ME-Hdv"/>
                                     <outlet property="slugline" destination="EPF-r8-vWJ" id="fQp-Yv-1k4"/>
-                                    <segue destination="k2b-jZ-mrs" kind="push" id="IeI-fm-8fo"/>
+                                    <segue destination="k2b-jZ-mrs" kind="show" id="IeI-fm-8fo"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="NewsImgCell" rowHeight="140" id="IE3-O0-ITF" customClass="ImageCell" customModule="PracticeOne" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="170" width="600" height="140"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" tableViewCell="IE3-O0-ITF" id="u3f-u6-1ke">
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="139"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" misplaced="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wh9-8W-oKW">
@@ -69,7 +72,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mp-j7-gpB">
                                             <rect key="frame" x="124" y="44" width="176" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="3YO-X2-YHk">
@@ -97,7 +100,7 @@
                                     <outlet property="headline" destination="Wh9-8W-oKW" id="lhr-pg-w4o"/>
                                     <outlet property="slugline" destination="1mp-j7-gpB" id="SVw-cP-2Zd"/>
                                     <outlet property="thumnail" destination="3YO-X2-YHk" id="55D-fU-f0J"/>
-                                    <segue destination="k2b-jZ-mrs" kind="push" id="R8i-Vw-46N"/>
+                                    <segue destination="k2b-jZ-mrs" kind="show" id="R8i-Vw-46N"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -109,7 +112,7 @@
                     <navigationItem key="navigationItem" id="18E-An-XXj">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="ap1-Ur-Hh5">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EJX-Th-G8F">
-                                <rect key="frame" x="16" y="7" width="100" height="30"/>
+                                <rect key="frame" x="20" y="7" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Stop Loading">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -121,7 +124,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="HJ0-cQ-5C7">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ypq-gp-fm6">
-                                <rect key="frame" x="451" y="7" width="80" height="30"/>
+                                <rect key="frame" x="500" y="7" width="80" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Refresh">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -140,9 +143,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VlM-F7-pBp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="499" y="315"/>
+            <point key="canvasLocation" x="932" y="342"/>
         </scene>
-        <!--Web View Controller-->
+        <!--Detailed Web Page-->
         <scene sceneID="IJJ-Yw-tmc">
             <objects>
                 <viewController id="k2b-jZ-mrs" customClass="WebViewController" customModule="PracticeOne" customModuleProvider="target" sceneMemberID="viewController">
@@ -151,11 +154,15 @@
                         <viewControllerLayoutGuide type="bottom" id="2Ts-ps-yXo"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kGO-ep-Tim">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MeA-7S-1pN">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                            <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TLE-Qi-yLR">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MeA-7S-1pN">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
                                     <barButtonItem systemItem="stop" id="OPd-xB-IpF">
                                         <connections>
@@ -182,18 +189,19 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TLE-Qi-yLR">
-                                <rect key="frame" x="9" y="64" width="302" height="455"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="TLE-Qi-yLR" secondAttribute="trailing" constant="4" id="Fk0-eM-6aa"/>
-                            <constraint firstItem="TLE-Qi-yLR" firstAttribute="leading" secondItem="kGO-ep-Tim" secondAttribute="leadingMargin" constant="4" id="aeU-O9-PqP"/>
+                            <constraint firstItem="TLE-Qi-yLR" firstAttribute="top" secondItem="JDF-DP-yC5" secondAttribute="bottom" id="4Cz-Xj-E9a"/>
+                            <constraint firstItem="TLE-Qi-yLR" firstAttribute="leading" secondItem="kGO-ep-Tim" secondAttribute="leadingMargin" id="5SN-ao-Plm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="TLE-Qi-yLR" secondAttribute="trailing" id="DcZ-Wl-M2i"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="MeA-7S-1pN" secondAttribute="bottom" id="R9f-IN-aSH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MeA-7S-1pN" secondAttribute="trailing" id="cm0-wI-5Jf"/>
+                            <constraint firstItem="MeA-7S-1pN" firstAttribute="top" secondItem="TLE-Qi-yLR" secondAttribute="bottom" id="dgu-hJ-LPY"/>
+                            <constraint firstItem="MeA-7S-1pN" firstAttribute="leading" secondItem="kGO-ep-Tim" secondAttribute="leadingMargin" id="gt7-CM-jk7"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="c7O-GS-BXk"/>
+                    <navigationItem key="navigationItem" title="Detailed Web Page" id="c7O-GS-BXk"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="webView" destination="TLE-Qi-yLR" id="zZr-7i-A9F"/>
@@ -201,7 +209,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Yj-ff-NwY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="974" y="323"/>
+            <point key="canvasLocation" x="1826" y="341"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mYG-PQ-dWQ">
@@ -219,18 +227,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XOF-g1-9BO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="129" y="323.99999999999994"/>
+            <point key="canvasLocation" x="241.875" y="342.25352112676046"/>
         </scene>
     </scenes>
     <resources>
         <image name="Placeholder" width="48" height="48"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="IeI-fm-8fo"/>
+        <segue reference="R8i-Vw-46N"/>
     </inferredMetricsTieBreakers>
 </document>

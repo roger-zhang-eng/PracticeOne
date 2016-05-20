@@ -9,10 +9,11 @@
 import UIKit
 
 struct tableUpdateValue {
-    //var index_path: NSIndexPath?
+    var index_path: NSIndexPath?
     var headline: String
     var slugline: String
     var imgview: Bool
+    var imgDownloaded: Bool
     var imgUrl: String?
     var image: UIImage?
     var tinyUrl: String
@@ -44,16 +45,16 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
         if(self.tabledata!.database_exist) {
             
             self.loadingIndicator.hidesWhenStopped = true
-            println("In viewDidLoad: Recoreds -> \(self.tabledata!.database!.count)")
+            print("In viewDidLoad: Recoreds -> \(self.tabledata!.database!.count)")
             
             for i in 1...self.tabledata!.database!.count {
                 let rowData = tabledata!.database![i-1]
                 let dateline_str = rowData["dateLine"].stringValue
-                println("cell[\(i-1)] dateLine: \(dateline_str)")
+                print("cell[\(i-1)] dateLine: \(dateline_str)")
             }
             
         } else {
-            println("In viewDidLoad: database does not exist")
+            print("In viewDidLoad: database does not exist")
             self.loadingIndicator.hidesWhenStopped = true
             stopLoadingBtn.hidden = false
             self.loadingIndicator.startAnimating()
@@ -72,13 +73,13 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
     }
     
     override func viewWillAppear(animated: Bool) {
-        println("In viewWillAppear !")
+        print("In viewWillAppear !")
         super.viewWillAppear(animated)
         deselectAllRows()
     }
     
     func deselectAllRows() {
-        if let selectedRows = newsTableView.indexPathsForSelectedRows() as? [NSIndexPath] {
+        if let selectedRows = newsTableView.indexPathsForSelectedRows as? [NSIndexPath] {
             for indexPath in selectedRows {
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
             }
@@ -97,7 +98,7 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
             let datasource = JSON(data: data)
             
             if let newsrecords = datasource["items"].arrayValue {
-                println("JSON elements array has \(newsrecords.count) records")
+                print("JSON elements array has \(newsrecords.count) records")
                 
                 //only when JSON data could be parsed, set the database_exist true, otherwise database_exist is still default false
                 self.tabledata!.database_exist = true
@@ -172,7 +173,7 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        //println("In tableview cellforrowatindexpath:  row \(indexPath.row) ! ")
+        print("In tableview cellforrowatindexpath:  row \(indexPath.row) ! ")
         
         //ask for a reusable cell from the tableview, the tableview will create a new one if it doesn't have any
         //let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "NewsCell")
@@ -188,7 +189,7 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
             
         } else {
             NSLog("In tableview cellForRowAtIndexPath, tabledata does not have database!")
-            let cell = newsTableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as BasicCell
+            let cell = newsTableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as! BasicCell
             
             return cell
         }
@@ -198,31 +199,46 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println("The selected cell's row \(indexPath.row)")
+        print("The selected cell's row \(indexPath.row)")
     }
 
+    
+    func startDownloadIcon(index: Int) {
+        
+        //If the image is in downloading, avoid to download again.
+        if(self.tableIndexPath[index]!.imgDownloaded) {
+            return
+        }
+        
+        self.tableIndexPath[index]!.imgDownloaded = true
+        let imgURL = NSMutableURLRequest(URL: NSURL(string:tableIndexPath[index]!.imgUrl!)!)
+        let fetchimage = FetchImage(val:index)
+        fetchimage.delegate = self
+        fetchimage.httpGet(imgURL) {
+            (resultString, error) -> Void in
+            fetchimage.callback(result: resultString, error: error)
+        }
+    
+    }
+    
+    
     func imageCellAtIndexPath(indexPath:NSIndexPath) -> ImageCell {
-        let cell = newsTableView.dequeueReusableCellWithIdentifier("NewsImgCell", forIndexPath: indexPath) as ImageCell
+        let cell = newsTableView.dequeueReusableCellWithIdentifier("NewsImgCell", forIndexPath: indexPath) as! ImageCell
 
-        println("cell of row \(indexPath.row) has existed, reuse it ! ")
+        print("cell of row \(indexPath.row) has existed, reuse it ! ")
         
         cell.headline.text = tableIndexPath[indexPath.row]!.headline
         cell.slugline.text = tableIndexPath[indexPath.row]!.slugline
         
         if tableIndexPath[indexPath.row]!.imgview {
-            println("cell of row \(indexPath.row) has image ! ")
+            print("cell of row \(indexPath.row) has image ! ")
             
             // retrieve image data from url if the image is null
             if(tableIndexPath[indexPath.row]!.image == nil) {
                 cell.thumnail.image = UIImage(named: "Placeholder")
-                var imgURL = NSMutableURLRequest(URL: NSURL(string:tableIndexPath[indexPath.row]!.imgUrl!)!)
-                
-                var fetchimage = FetchImage(val:indexPath.row)
-                fetchimage.delegate = self
-                fetchimage.httpGet(imgURL) {
-                    (resultString, error) -> Void in
-                    fetchimage.callback(result: resultString, error: error)
-                }
+                self.tableIndexPath[indexPath.row]!.index_path = indexPath
+                startDownloadIcon(indexPath.row)
+
             } else {
                 
                 cell.thumnail.image = tableIndexPath[indexPath.row]?.image!
@@ -230,7 +246,7 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
             
         } else {
             cell.thumnail.image = nil
-            println("cell of row \(indexPath.row) does not has image ! ")
+            print("cell of row \(indexPath.row) does not has image ! ")
         }
         
         return cell
@@ -238,12 +254,12 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
     
     func basicCellAtIndexPath(indexPath:NSIndexPath) -> BasicCell {
         
-        let cell = newsTableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as BasicCell
+        let cell = newsTableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as! BasicCell
         
         //when the database records exist, return the cell's needed information directly.
         if(tableIndexPath[indexPath.row] != nil) {
             
-            println("cell of row \(indexPath.row) has existed, reuse it ! ")
+            print("cell of row \(indexPath.row) has existed, reuse it ! ")
             
             cell.headline.text = tableIndexPath[indexPath.row]!.headline
             cell.slugline.text = tableIndexPath[indexPath.row]!.slugline
@@ -257,12 +273,12 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
     
     func didReceiveURLResults(timeval:Int?) {
         
-        // Delay execution of my block for 8 seconds.
+        // Delay execution of my block for 3 seconds to simulate the network speed low
         // This delay is only for simulating the network delay, and demo the loading waiting time animation!
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW,Int64(3 * Double(NSEC_PER_SEC)))
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW,Int64(0.5 * Double(NSEC_PER_SEC)))
     
         dispatch_after(delayTime, dispatch_get_main_queue()) {
-            println("Database is got, but delay time to call back!")
+            print("Database is got, but delay time to call back!")
             
             //stop loading indicator, and reload tableview data to display
             self.loadingIndicator.stopAnimating()
@@ -273,11 +289,11 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
                 self.tableIndexPath.removeAll(keepCapacity: false)
                 self.tabledata!.resetAll()
             } else {
-                println("Got all the URL data now!")
+                print("Got all the URL data now!")
                 self.stopLoadingBtn.hidden = true
                 
                 //fill records text data into tableview database
-                for (index, rowData) in enumerate(self.tabledata!.database!) {
+                for (index, rowData) in (self.tabledata!.database!).enumerate() {
                     let urlstr = rowData["thumbnailImageHref"].stringValue
                     var imgExist = false
                     if urlstr != nil {
@@ -291,7 +307,7 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
                         NSLog("No thumbnailImageHref in row \(index)")
                     }
                     
-                    var cell_all_data = tableUpdateValue(headline: rowData["headLine"].stringValue!, slugline: rowData["slugLine"].stringValue!, imgview: imgExist, imgUrl:urlstr, image: nil,tinyUrl:rowData["tinyUrl"].stringValue!)
+                    var cell_all_data = tableUpdateValue(index_path: nil,headline: rowData["headLine"].stringValue!, slugline: rowData["slugLine"].stringValue!, imgview: imgExist,imgDownloaded: false, imgUrl:urlstr, image: nil,tinyUrl:rowData["tinyUrl"].stringValue!)
                     
                     self.tableIndexPath[index] = cell_all_data
                     
@@ -311,9 +327,15 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
         
         tableIndexPath[index!]?.image = img_data
         
-        println("Row \(index) image has been downloaded!")
+        print("Row \(index) image has been downloaded!")
         
-        //Only update the visible Rows of tableview,
+        let indexPath = table_update.index_path!
+        
+        //Only update the image Row's image data in tableview
+        let cell = self.newsTableView.cellForRowAtIndexPath(indexPath) as! ImageCell
+        cell.thumnail.image = img_data
+        
+        /* // update all the visible Rows of tableview (not efficient)
         //select the updated Row from the visible Rows
         let visiblePaths_array = self.newsTableView.indexPathsForVisibleRows()!
         
@@ -324,22 +346,54 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
                 self.newsTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation:UITableViewRowAnimation.None)
             }
             
-        }
+        } */
         
         
     } // end of didReceiveAPIResults func
     
+    
+    func loadImageForScreenRows() {
+        if self.tabledata!.database_exist {
+            let visibleRows = self.newsTableView.indexPathsForVisibleRows as [NSIndexPath]
+            for  indexPath in visibleRows {
+                let record = self.tableIndexPath[indexPath.row]!
+                if record.imgview {
+                    if record.image == nil {
+                        println("In loadImageForScreenRows:  row \(indexPath.row) download image ")
+                        let cell = self.newsTableView.cellForRowAtIndexPath(indexPath) as ImageCell
+                        cell.thumnail.image = UIImage(named: "Placeholder")
+                        self.tableIndexPath[indexPath.row]?.index_path = indexPath
+                        startDownloadIcon(indexPath.row)
+                    }
+                } // end of record.imgview
+                
+            } // end of for  indexPath in visibleRows
+        }
+    
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-            if let indexPath = self.newsTableView.indexPathForSelectedRow() {
-                println("Open Web Page in the row \(indexPath.row)")
+            if let indexPath = self.newsTableView.indexPathForSelectedRow {
+                print("Open Web Page in the row \(indexPath.row)")
                 
                 let weburl = tableIndexPath[indexPath.row]!.tinyUrl
                 
-                (segue.destinationViewController as WebViewController).url = NSURL(string: weburl)
+                (segue.destinationViewController as! WebViewController).url = NSURL(string: weburl)
                 
             }
         
+    }
+    
+    // #pragma mark - UIScrollViewDelegate
+    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if(!decelerate) {
+            loadImageForScreenRows()
+        }
+    }
+    
+    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        loadImageForScreenRows()
     }
 
     

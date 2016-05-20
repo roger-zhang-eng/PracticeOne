@@ -33,9 +33,11 @@ public enum JSON {
     case Null(NSError?)
     
     init(data:NSData, options opt: NSJSONReadingOptions = nil, error: NSErrorPointer = nil) {
-        if let object: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: opt, error: error){
+        do {
+            let object: AnyObject = try NSJSONSerialization.JSONObjectWithData(data, options: opt)
             self = JSON(object: object)
-        } else {
+        } catch let error1 as NSError {
+            error.memory = error1
             self = .Null(nil)
         }
     }
@@ -45,7 +47,7 @@ public enum JSON {
         case let number as NSNumber:
             self = .ScalarNumber(number)
         case let string as NSString:
-            self = .ScalarString(string)
+            self = .ScalarString(string) as (String)
         case let null as NSNull:
             self = .Null(nil)
         case let array as NSArray:
@@ -56,9 +58,9 @@ public enum JSON {
             self = .Sequence(aJSONArray)
         case let dictionary as NSDictionary:
             var aJSONDictionary = Dictionary<String, JSON>()
-            for (key : AnyObject, value : AnyObject) in dictionary {
+            for (key, value): (AnyObject, AnyObject) in dictionary {
                 if let key = key as? NSString {
-                    aJSONDictionary[key] = JSON(object: value)
+                    aJSONDictionary[key as String] = JSON(object: value)
                 }
             }
             self = .Mapping(aJSONDictionary)
@@ -95,7 +97,7 @@ extension JSON {
 }
 
 //MARK: - Printable, DebugPrintable
-extension JSON: Printable, DebugPrintable {
+extension JSON: CustomStringConvertible, CustomDebugStringConvertible {
     
     public var description: String {
         switch self {

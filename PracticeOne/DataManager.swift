@@ -19,7 +19,7 @@ class DataManager {
     var delegate: DataManagerProtocol?
     
     init() {
-        println("DataManager init done!")
+        print("DataManager init done!")
     }
     
     func getDataFromFile(success: ((data:NSData) -> Array<JSON>?)) {
@@ -29,9 +29,11 @@ class DataManager {
             //NSLog("NSData file is: \(filePath!)")
             
             var readError:NSError?
-            if let data = NSData(contentsOfFile: filePath!, options: NSDataReadingOptions.DataReadingUncached,
-                error:&readError) {
+            do {
+                let data = try NSData(contentsOfFile: filePath!, options: NSDataReadingOptions.DataReadingUncached)
                     self.database =  success(data: data)
+            } catch let error as NSError {
+                readError = error
             }
         
         //})
@@ -49,9 +51,9 @@ class DataManager {
                 
                 if(error != nil) {
                     // If there is an error in the web request, print it to the console
-                    println(error.localizedDescription)
+                    print(error!.localizedDescription)
                 } else {
-                    self.database =  success(data: data)
+                    self.database =  success(data: data!)
                 
                     //call delegate func to trigger 8s delay back to main queue
                     self.delegate?.didReceiveURLResults(3)
