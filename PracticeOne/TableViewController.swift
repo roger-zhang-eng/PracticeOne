@@ -173,7 +173,7 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        print("In tableview cellforrowatindexpath:  row \(indexPath.row) ! ")
+        print("In tableview cell for row at indexpath:  row \(indexPath.row) ! ")
         
         //ask for a reusable cell from the tableview, the tableview will create a new one if it doesn't have any
         //let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "NewsCell")
@@ -323,17 +323,23 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
     func didReceiveImgResults(index:Int?,img_data: UIImage?) {
         
         let table_update = tableIndexPath[index!]!
-        //table_update.cell_data.imageView?.image = img_data!
+        //Reseize thumb image
+        let size = CGSizeMake(100, 100)
+        UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
+        img_data!.drawInRect(CGRectMake(0, 0, size.width, size.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
         
-        tableIndexPath[index!]?.image = img_data
+        tableIndexPath[index!]?.image = newImage
         
         print("Row \(index) image has been downloaded!")
         
         let indexPath = table_update.index_path!
         
         //Only update the image Row's image data in tableview
-        let cell = self.newsTableView.cellForRowAtIndexPath(indexPath) as! ImageCell
-        cell.thumnail.image = img_data
+        if let cell = self.newsTableView.cellForRowAtIndexPath(indexPath) as? ImageCell {
+            cell.thumnail.image = newImage
+        }
         
         /* // update all the visible Rows of tableview (not efficient)
         //select the updated Row from the visible Rows

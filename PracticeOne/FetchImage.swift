@@ -36,12 +36,12 @@ class FetchImage: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
     //Download image asynchronous
     func httpGet(request: NSMutableURLRequest!, callback: (String,
         String?) -> Void) {
-            var configuration =
+            let configuration =
             NSURLSessionConfiguration.defaultSessionConfiguration()
-            var session = NSURLSession(configuration: configuration,
+            let session = NSURLSession(configuration: configuration,
                 delegate: self,
                 delegateQueue:NSOperationQueue.mainQueue())
-            var task = session.dataTaskWithRequest(request){
+            let task = session.dataTaskWithRequest(request){
                 (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
                     if error != nil {
                         callback("", error!.localizedDescription)
@@ -49,12 +49,14 @@ class FetchImage: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
                     //This is only for text string data display
                     //var result = NSString(data: data, encoding:
                     //    NSASCIIStringEncoding)!
-                        var result = "Get https data OK! Bytes: \(data!.length) \n"
+                        let result = "Get https data OK! Bytes: \(data!.length) \n"
                     
                         callback(result, nil)
                     
-                        self.img = UIImage(data: data!)
-                        self.delegate?.didReceiveImgResults(self.index, img_data:self.img)
+                        if let image_data = UIImage(data: data!) {
+                            self.img = image_data
+                            self.delegate?.didReceiveImgResults(self.index, img_data:self.img)
+                        }
                     
                     }
             }
