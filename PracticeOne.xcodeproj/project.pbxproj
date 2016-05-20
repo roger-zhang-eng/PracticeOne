@@ -16,10 +16,10 @@
 		2234FBCD1A67E0340081F435 /* PracticeOneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBCC1A67E0340081F435 /* PracticeOneTests.swift */; };
 		2234FBD71A67E2180081F435 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBD61A67E2180081F435 /* TableViewController.swift */; };
 		2234FBD91A67E8CE0081F435 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBD81A67E8CE0081F435 /* DataManager.swift */; };
-		2234FBDE1A67ECE30081F435 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234FBDD1A67ECE30081F435 /* SwiftyJSON.swift */; };
 		2234FBE01A67F0E70081F435 /* testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 2234FBDF1A67F0E70081F435 /* testdata.json */; };
 		2282102B1A6E789A00E2D40B /* FetchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282102A1A6E789A00E2D40B /* FetchImage.swift */; };
 		228D055C1A73B27B00ADB953 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228D055B1A73B27B00ADB953 /* WebViewController.swift */; };
+		22B712711CEF32DC00157FDE /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B712701CEF32DC00157FDE /* SwiftyJSON.swift */; };
 		22C53C381A7A5510009E5410 /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C53C371A7A5510009E5410 /* BasicCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,10 +48,10 @@
 		2234FBD61A67E2180081F435 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		2234FBD81A67E8CE0081F435 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		2234FBDC1A67ECE30081F435 /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftyJSON.h; sourceTree = "<group>"; };
-		2234FBDD1A67ECE30081F435 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		2234FBDF1A67F0E70081F435 /* testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testdata.json; sourceTree = "<group>"; };
 		2282102A1A6E789A00E2D40B /* FetchImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchImage.swift; sourceTree = "<group>"; };
 		228D055B1A73B27B00ADB953 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		22B712701CEF32DC00157FDE /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		22C53C371A7A5510009E5410 /* BasicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,8 +102,8 @@
 				2234FBB51A67E0340081F435 /* PracticeOne.xcdatamodeld */,
 				2234FBB11A67E0340081F435 /* Supporting Files */,
 				2234FBD81A67E8CE0081F435 /* DataManager.swift */,
+				22B712701CEF32DC00157FDE /* SwiftyJSON.swift */,
 				2234FBDC1A67ECE30081F435 /* SwiftyJSON.h */,
-				2234FBDD1A67ECE30081F435 /* SwiftyJSON.swift */,
 				2234FBDF1A67F0E70081F435 /* testdata.json */,
 				2282102A1A6E789A00E2D40B /* FetchImage.swift */,
 				228D055B1A73B27B00ADB953 /* WebViewController.swift */,
@@ -248,8 +248,8 @@
 				2282102B1A6E789A00E2D40B /* FetchImage.swift in Sources */,
 				2234FBD71A67E2180081F435 /* TableViewController.swift in Sources */,
 				22C53C381A7A5510009E5410 /* BasicCell.swift in Sources */,
+				22B712711CEF32DC00157FDE /* SwiftyJSON.swift in Sources */,
 				228D055C1A73B27B00ADB953 /* WebViewController.swift in Sources */,
-				2234FBDE1A67ECE30081F435 /* SwiftyJSON.swift in Sources */,
 				2234FBB71A67E0340081F435 /* PracticeOne.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,9 +378,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PracticeOne/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -389,9 +390,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PracticeOne/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

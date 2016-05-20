@@ -79,7 +79,7 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
     }
     
     func deselectAllRows() {
-        if let selectedRows = newsTableView.indexPathsForSelectedRows as? [NSIndexPath] {
+        if let selectedRows = newsTableView.indexPathsForSelectedRows {
             for indexPath in selectedRows {
                 tableView.deselectRowAtIndexPath(indexPath, animated: false)
             }
@@ -97,7 +97,7 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
             
             let datasource = JSON(data: data)
             
-            if let newsrecords = datasource["items"].arrayValue {
+            if let newsrecords = datasource["items"].array {
                 print("JSON elements array has \(newsrecords.count) records")
                 
                 //only when JSON data could be parsed, set the database_exist true, otherwise database_exist is still default false
@@ -294,10 +294,10 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
                 
                 //fill records text data into tableview database
                 for (index, rowData) in (self.tabledata!.database!).enumerate() {
-                    let urlstr = rowData["thumbnailImageHref"].stringValue
+                    let urlstr = rowData["thumbnailImageHref"].string
                     var imgExist = false
                     if urlstr != nil {
-                        if(countElements(urlstr!) > 5) {
+                        if(urlstr!.characters.count > 5) {
                             imgExist = true
                         } else {
                             NSLog("thumbnailImageHref in row \(index) is too short, and invalid!")
@@ -307,7 +307,7 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
                         NSLog("No thumbnailImageHref in row \(index)")
                     }
                     
-                    var cell_all_data = tableUpdateValue(index_path: nil,headline: rowData["headLine"].stringValue!, slugline: rowData["slugLine"].stringValue!, imgview: imgExist,imgDownloaded: false, imgUrl:urlstr, image: nil,tinyUrl:rowData["tinyUrl"].stringValue!)
+                    let cell_all_data = tableUpdateValue(index_path: nil,headline: rowData["headLine"].stringValue, slugline: rowData["slugLine"].stringValue, imgview: imgExist,imgDownloaded: false, imgUrl:urlstr, image: nil,tinyUrl:rowData["tinyUrl"].stringValue)
                     
                     self.tableIndexPath[index] = cell_all_data
                     
@@ -354,13 +354,13 @@ class TableViewController: UITableViewController,FetchImageProtocol,DataManagerP
     
     func loadImageForScreenRows() {
         if self.tabledata!.database_exist {
-            let visibleRows = self.newsTableView.indexPathsForVisibleRows as [NSIndexPath]
+            let visibleRows = self.newsTableView.indexPathsForVisibleRows! as [NSIndexPath]
             for  indexPath in visibleRows {
                 let record = self.tableIndexPath[indexPath.row]!
                 if record.imgview {
                     if record.image == nil {
-                        println("In loadImageForScreenRows:  row \(indexPath.row) download image ")
-                        let cell = self.newsTableView.cellForRowAtIndexPath(indexPath) as ImageCell
+                        print("In loadImageForScreenRows:  row \(indexPath.row) download image ")
+                        let cell = self.newsTableView.cellForRowAtIndexPath(indexPath) as! ImageCell
                         cell.thumnail.image = UIImage(named: "Placeholder")
                         self.tableIndexPath[indexPath.row]?.index_path = indexPath
                         startDownloadIcon(indexPath.row)
