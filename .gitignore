@@ -26,3 +26,5 @@ build/
 
 # Ignore all CocoaPods library for saving space
 Pods/
+
+*.pdf
